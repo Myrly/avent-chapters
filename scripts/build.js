@@ -15,6 +15,7 @@ await mkdir(new URL("assets/", dist), { recursive: true });
 await mkdir(new URL("scripts/", dist), { recursive: true });
 await mkdir(new URL("scripts/domain/data/models/", dist), { recursive: true });
 await mkdir(new URL("scripts/domain/services/calculation/", dist), { recursive: true });
+await mkdir(new URL("scripts/domain/services/epub/", dist), { recursive: true });
 
 for (const page of pages) {
   const html = await ejs.renderFile(
@@ -38,6 +39,9 @@ await cp(new URL("../src/data/models/", import.meta.url), new URL("scripts/domai
   recursive: true,
 });
 await cp(new URL("../src/services/calculation/", import.meta.url), new URL("scripts/domain/services/calculation/", dist), {
+  recursive: true,
+});
+await cp(new URL("../src/services/epub/", import.meta.url), new URL("scripts/domain/services/epub/", dist), {
   recursive: true,
 });
 await cp(new URL("../src/services/manual-input.js", import.meta.url), new URL("scripts/domain/services/manual-input.js", dist));

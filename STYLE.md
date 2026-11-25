@@ -23,4 +23,6 @@ Reuse classes as much as possible.
 
 Interactive controls should follow the same visual language: strong ink borders, squared corners, palette-based fills, visible focus rings, and offset shadows for prominent controls. Checkboxes use the shared `.brutal-checkbox` treatment rather than browser-default rendering.
 
+Ignored EPUB sections remain visible in a muted gray treatment with their title struck through and a clearly labeled Restore button. Keep the row readable and keyboard accessible.
+
 The centered main content can grow to 1200px on wide displays, but should remain viewport-relative on small screens with no horizontal scrolling.

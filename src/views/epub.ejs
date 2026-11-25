@@ -2,7 +2,64 @@
 <section class="brutal-card">
   <p class="eyebrow" data-i18n="epub.eyebrow">Mode EPUB</p>
   <h1 data-i18n="epub.title">Laissez les titres de chapitre guider le découpage</h1>
-  <p data-i18n="epub.description">L'analyse EPUB sera disponible à l'étape 3.0.</p>
-  <a class="button" href="/index.html" data-i18n="common.home">Retour à l'accueil</a>
+  <p data-i18n="epub.description">Importez un EPUB : son contenu est analysé dans votre navigateur.</p>
+  <form class="form-stack" data-epub-form novalidate>
+    <div class="manual-fields">
+      <label class="form-field">
+        <span data-i18n="epub.total_pages">Total pages in the print edition (optional)</span>
+        <input name="totalPages" type="number" min="1" step="1" inputmode="numeric">
+      </label>
+      <label class="form-field">
+        <span data-i18n="manual.division_mode">Objectif quotidien</span>
+        <select name="divisionMode" data-division-mode>
+          <option value="dayCount" selected data-i18n="manual.goal_by_days">Nombre de jours</option>
+          <option value="pagesPerDay" data-i18n="manual.goal_by_pages" disabled>Pages par jour</option>
+        </select>
+      </label>
+      <label class="form-field" data-day-count-field>
+        <span data-i18n="manual.day_count">Nombre de jours</span>
+        <input name="dayCount" type="number" min="1" step="1" inputmode="numeric" value="24" required>
+      </label>
+      <label class="form-field" data-pages-per-day-field hidden>
+        <span data-i18n="manual.pages_per_day_goal">Pages visées par jour</span>
+        <input name="pagesPerDayGoal" type="number" min="1" step="1" inputmode="numeric" value="30" disabled>
+      </label>
+    </div>
+    <p class="status-message" data-i18n="epub.page_goal_help">
+      Indiquez le nombre de pages imprimées pour estimer les repères. Sinon, les jours sont équilibrés selon le nombre de caractères lisibles.
+    </p>
+    <label class="form-field">
+      <span data-i18n="epub.file_label">Fichier EPUB</span>
+      <input name="epubFile" type="file" accept=".epub,application/epub+zip" required>
+    </label>
+    <p class="status-message" data-i18n="epub.privacy">Le fichier ne quitte jamais votre navigateur.</p>
+    <button class="button" type="submit" data-i18n="epub.parse">Analyser le livre</button>
+  </form>
+  <p class="status-error" data-epub-error role="alert" aria-live="assertive" hidden></p>
+  <p class="status-message" data-epub-status role="status" aria-live="polite"></p>
+  <section class="epub-results" data-epub-result aria-live="polite" hidden>
+    <h2 data-i18n="epub.result_title">Livre détecté</h2>
+    <dl class="epub-metadata">
+      <dt data-i18n="epub.book_title">Titre</dt>
+      <dd data-epub-title></dd>
+      <dt data-i18n="epub.author">Auteur</dt>
+      <dd data-epub-author></dd>
+    </dl>
+    <h3 data-i18n="epub.sections_title">Sections détectées</h3>
+    <ul class="epub-section-list" data-epub-sections></ul>
+    <br>
+    <p class="status-message" data-epub-page-note data-i18n="epub.page_note"></p>
+    <p class="status-message" data-epub-no-headings data-i18n="epub.no_headings" hidden></p>
+    <p class="status-message" data-epub-no-active-sections data-i18n="epub.no_active_sections" hidden></p>
+    <section class="epub-plan" data-epub-plan hidden>
+      <h3 data-i18n="epub.plan_title">Reading plan</h3>
+      <ol class="division-list" data-epub-days></ol>
+    </section>
+    <a class="button button-secondary" href="/manual.html" target="_blank" rel="noopener" data-epub-manual data-i18n="epub.manual_fallback" hidden>
+      Continuer en saisie manuelle
+    </a>
+  </section>
+  <p><a class="button button-secondary" href="/index.html" data-i18n="common.home">Retour à l'accueil</a></p>
 </section>
+<script type="module" src="/scripts/epub-form.js"></script>
 ` }) %>

@@ -1,7 +1,9 @@
 # Next Implementation Step
 
-Proceed to step 3.0 in PLAN.md: parse EPUB metadata and normalize its navigation and section structure.
+Proceed to step 4.0 in PLAN.md: integrate EPUB and manual workflows into the shared preview.
 
-Use the shared `Book` and `Section` models and `normalizeSections()` helper. Keep parsing in the browser, preserve the static-only server boundary, and add every new user-facing string to both French and English dictionaries.
+Step 3.0 parses EPUB 3 nav, EPUB 2 NCX, or spine XHTML headings into shared models. Step 3.1 adds cumulative character offsets, optional print-page estimates, a 24-day default, the shared pages-per-day goal, and reversible ignored-section state.
 
-Preserve `Book.storyStartPage`, optional `Book.pagesPerDayGoal`, and the `dayCount` derived by the manual workflow. Reuse the shared sparse-boundary fallback from `calculateDivision()` when physical page ranges are available. For UI work, follow `AGENTS.md` and `STYLE.md`: use the responsive 1200px main width, `.brutal-checkbox`, palette, strong borders, visible focus, and offset shadows.
+Keep the uploaded `File` browser-local. Parsed EPUB sections retain `startPage: null`; `epubOffset.characterOffset` is the raw whole-book position, including ignored content, while day targets exclude ignored text. Never label character-derived print pages as exact.
+
+For step 4.0, allow correction/removal of detected sections and merge EPUB/manual data into the shared preview. Preserve `Book.storyStartPage`, `Book.pagesPerDayGoal`, and the day count derived by the manual workflow. Keep the static-only server boundary, localize all new copy in French and English, and follow `AGENTS.md` / `STYLE.md`.
