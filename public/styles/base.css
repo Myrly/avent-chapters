@@ -1,0 +1,79 @@
+:root {
+  --wine: #602437;
+  --rose-dark: #b9375e;
+  --rose: #e05780;
+  --pink: #ff7aa2;
+  --pink-light: #ff9ebb;
+  --pale: #ffc2d4;
+  --background: #ffe0e9;
+  --detail: #d8a284;
+  --ink: #602437;
+}
+
+* { box-sizing: border-box; }
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background: var(--background);
+  font-family: Georgia, "Times New Roman", serif;
+}
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 4px solid var(--ink);
+  background: var(--pink);
+  padding: 1rem 4vw;
+}
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 1rem 4vw;
+  justify-content: center;
+  text-align: center;
+}
+.brand { color: var(--ink); font-size: 1.5rem; font-weight: 900; text-decoration: none; }
+.header-actions, .nav, .action-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.locale-control { display: grid; gap: 0.25rem; font: 700 0.75rem ui-monospace, monospace; }
+.locale-control select {
+  border: 3px solid var(--ink);
+  border-radius: 2px;
+  background: #fff8fb;
+  color: var(--ink);
+  padding: 0.4rem;
+  font: inherit;
+}
+.locale-control select:focus-visible { outline: 4px solid var(--detail); outline-offset: 2px; }
+.site-main { flex: 1; width: min(1200px, 92vw); margin: 3rem auto; }
+.brutal-card {
+  border: 4px solid var(--ink);
+  border-radius: 4px;
+  background: #fff8fb;
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: clamp(1.5rem, 5vw, 3rem);
+}
+.hero { background: var(--pale); }
+.eyebrow { font-family: ui-monospace, monospace; font-weight: 900; text-transform: uppercase; }
+h1 { max-width: 12ch; font-size: clamp(2.5rem, 8vw, 5.5rem); line-height: 0.95; margin: 0.25em 0; }
+.button {
+  display: inline-block;
+  border: 3px solid var(--ink);
+  border-radius: 2px;
+  background: var(--rose);
+  color: white;
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 0.8rem 1rem;
+  font-family: ui-monospace, monospace;
+  font-weight: 900;
+  text-decoration: none;
+}
+.button:hover { transform: translate(2px, 2px); box-shadow: 3px 3px 0 var(--ink); }
+.button:focus-visible { outline: 4px solid var(--detail); outline-offset: 4px; }
+.button-secondary { background: var(--pink); color: var(--ink); }
+.button-small { font-size: 0.85rem; padding: 0.55rem 0.75rem; }

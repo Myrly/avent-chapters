@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#602437">
+    <title data-i18n="title.manual">Saisie manuelle | Livrent</title>
+    <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="/styles/forms.css">
+    <script type="module" src="/scripts/i18n.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+  <a class="brand" href="/index.html">Livrent</a>
+  <div class="header-actions">
+    <nav class="nav" aria-label="Navigation principale" data-i18n-aria-label="nav.label">
+      <a class="button button-small" href="/manual.html" data-i18n="nav.manual">Saisie manuelle</a>
+      <a class="button button-small button-secondary" href="/epub.html" data-i18n="nav.epub">EPUB</a>
+    </nav>
+    <label class="locale-control">
+      <span data-i18n="language.label">Langue</span>
+      <select data-language-selector aria-label="Choisir la langue" data-i18n-aria-label="language.label">
+        <option value="fr">Français</option>
+        <option value="en">English</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+    <main class="site-main">
+<section class="brutal-card">
+  <p class="eyebrow" data-i18n="manual.eyebrow">Mode manuel</p>
+  <h1 data-i18n="manual.title">Découper à partir des débuts de chapitre</h1>
+  <p data-i18n="manual.description">Indiquez la dernière page du récit, un nombre de jours ou un objectif de pages par jour, et les débuts de chapitre. Les titres de section sont facultatifs.</p>
+  <form class="form-stack" data-manual-form novalidate>
+    <div class="manual-fields">
+      <label class="form-field">
+        <span data-i18n="manual.book_title">Titre du livre</span>
+        <input name="title" type="text" autocomplete="off" required>
+      </label>
+      <label class="form-field">
+        <span data-i18n="manual.edition">Édition (facultatif)</span>
+        <input name="edition" type="text" autocomplete="off">
+      </label>
+      <label class="form-field">
+        <span data-i18n="manual.total_pages">Dernière page de l'histoire</span>
+        <input name="totalPages" type="number" min="1" step="1" inputmode="numeric" required>
+      </label>
+      <label class="form-field">
+        <span data-i18n="manual.division_mode">Objectif quotidien</span>
+        <select name="divisionMode" data-division-mode>
+          <option value="dayCount" selected data-i18n="manual.goal_by_days">Nombre de jours</option>
+          <option value="pagesPerDay" data-i18n="manual.goal_by_pages">Pages par jour</option>
+        </select>
+      </label>
+      <label class="form-field" data-day-count-field>
+        <span data-i18n="manual.day_count">Nombre de jours</span>
+        <input name="dayCount" type="number" min="1" step="1" inputmode="numeric" value="24" required>
+      </label>
+      <label class="form-field" data-pages-per-day-field hidden>
+        <span data-i18n="manual.pages_per_day_goal">Pages visées par jour</span>
+        <input name="pagesPerDayGoal" type="number" min="1" step="1" inputmode="numeric" value="30" required disabled>
+      </label>
+    </div>
+    <fieldset class="manual-sections">
+      <legend data-i18n="manual.sections_title">Débuts des chapitres et sections</legend>
+      <p data-i18n="manual.sections_help">Ajoutez une page par ligne. Entrée passe au champ suivant, puis à la ligne suivante.</p>
+      <div class="section-list" data-section-list></div>
+      <button class="button button-secondary" type="button" data-add-section data-i18n="manual.add_section">Ajouter une section</button>
+      <p class="status-message" data-section-summary aria-live="polite"></p>
+    </fieldset>
+    <div class="confirmation-panel" data-duplicate-confirm hidden>
+      <p data-duplicate-pages aria-live="polite"></p>
+      <label class="confirmation-label">
+        <input class="brutal-checkbox" type="checkbox" data-confirm-duplicates>
+        <span data-i18n="manual.confirm_duplicates">Je confirme la suppression des entrées en double, en conservant la première ligne de chaque page.</span>
+      </label>
+    </div>
+    <ul class="status-error" data-manual-errors role="alert" aria-live="assertive" hidden></ul>
+    <button class="button" type="submit" data-i18n="manual.submit">Calculer le découpage</button>
+  </form>
+</section>
+<script type="module" src="/scripts/manual-form.js"></script>
+</main>
+    <footer class="site-footer">
+  <p data-i18n="footer.tagline">Fait avec le ❤️ - par @Myrly</p>
+</footer>
+
+  </body>
+</html>
+

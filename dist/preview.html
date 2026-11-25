@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#602437">
+    <title data-i18n="title.preview">Aperçu du découpage | Livrent</title>
+    <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="/styles/forms.css">
+    <script type="module" src="/scripts/i18n.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+  <a class="brand" href="/index.html">Livrent</a>
+  <div class="header-actions">
+    <nav class="nav" aria-label="Navigation principale" data-i18n-aria-label="nav.label">
+      <a class="button button-small" href="/manual.html" data-i18n="nav.manual">Saisie manuelle</a>
+      <a class="button button-small button-secondary" href="/epub.html" data-i18n="nav.epub">EPUB</a>
+    </nav>
+    <label class="locale-control">
+      <span data-i18n="language.label">Langue</span>
+      <select data-language-selector aria-label="Choisir la langue" data-i18n-aria-label="language.label">
+        <option value="fr">Français</option>
+        <option value="en">English</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+    <main class="site-main">
+<section class="brutal-card">
+  <p class="eyebrow" data-i18n="preview.eyebrow">Aperçu du découpage</p>
+  <h1 data-i18n="preview.title">Votre plan de lecture</h1>
+  <p data-i18n="preview.description">Vérifiez les pages prévues pour chaque jour.</p>
+  <p class="status-error" data-preview-error role="alert" hidden></p>
+  <div data-preview-results hidden>
+    <p class="status-message" data-preview-summary></p>
+    <p class="status-message" data-preview-duplicates hidden></p>
+    <ol class="division-list" data-preview-days></ol>
+  </div>
+  <div class="action-row">
+    <a class="button" href="/manual.html" data-i18n="preview.back">Modifier les données</a>
+    <a class="button button-secondary" href="/index.html" data-i18n="common.home">Retour à l'accueil</a>
+  </div>
+</section>
+<script type="module" src="/scripts/preview.js"></script>
+</main>
+    <footer class="site-footer">
+  <p data-i18n="footer.tagline">Fait avec le ❤️ - par @Myrly</p>
+</footer>
+
+  </body>
+</html>
+

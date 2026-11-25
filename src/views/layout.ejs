@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#602437">
+    <title data-i18n="<%= titleKey %>"><%= title %></title>
+    <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="/styles/forms.css">
+    <script type="module" src="/scripts/i18n.js"></script>
+  </head>
+  <body>
+    <%- include("partials/header") %>
+    <main class="site-main"><%- body %></main>
+    <%- include("partials/footer") %>
+  </body>
+</html>

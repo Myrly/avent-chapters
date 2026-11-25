@@ -1,0 +1,26 @@
+export const divisionGoalMessages = {
+  fr: {
+    "manual.division_mode": "Objectif quotidien",
+    "manual.goal_by_days": "Nombre de jours",
+    "manual.goal_by_pages": "Pages par jour",
+    "manual.day_count": "Nombre de jours",
+    "manual.pages_per_day_goal": "Pages visées par jour",
+    "manual.error.dayCountInvalid": "Le nombre de jours doit être un entier positif.",
+    "manual.error.pagesPerDayInvalid": "L'objectif de pages par jour doit être un entier positif.",
+    "preview.book_summary": "Livre : {title} — édition : {edition} — dernière page de l'histoire : {pages} — {days} jours",
+    "preview.book_summary_pages_goal": "Livre : {title} — édition : {edition} — dernière page de l'histoire : {pages} — {days} jours — environ {goal} pages par jour",
+    "preview.generic_section": "Section de lecture",
+  },
+  en: {
+    "manual.division_mode": "Daily goal",
+    "manual.goal_by_days": "Number of days",
+    "manual.goal_by_pages": "Pages per day",
+    "manual.day_count": "Number of days",
+    "manual.pages_per_day_goal": "Pages per day goal",
+    "manual.error.dayCountInvalid": "The number of days must be a positive whole number.",
+    "manual.error.pagesPerDayInvalid": "The pages-per-day goal must be a positive whole number.",
+    "preview.book_summary": "Book: {title} — edition: {edition} — story ends on page {pages} — {days} days",
+    "preview.book_summary_pages_goal": "Book: {title} — edition: {edition} — story ends on page {pages} — {days} days — around {goal} pages per day",
+    "preview.generic_section": "Reading section",
+  },
+};
