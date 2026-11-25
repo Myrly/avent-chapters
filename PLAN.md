@@ -383,6 +383,31 @@ Allow section titles to be edited, ignored/restored, or removed. If parsing find
 
 ---
 
+## Step 4.1 — Reading-plan statistics
+
+**Goal**
+Summarize how many printed pages each day covers in the shared preview.
+
+**Implementation prompt**
+For every day, calculate its inclusive page count as `endPage - startPage + 1`. In the shared preview, show the arithmetic average, standard median (mean of the middle two values for an even day count), maximum, and minimum. Format values with locale-aware digits and at most one decimal place.
+
+For median, maximum, and minimum, provide a hover tooltip and keyboard-focusable equivalent listing every corresponding day, including ties. The average has no corresponding day. For EPUB, use the displayed character-to-print-page estimates when a total printed page count is available. If it is absent, hide the statistics box and explain that printed-page statistics require that total; do not present character counts as page counts.
+
+**Acceptance checks**
+- Manual previews show all four statistics using inclusive page ranges.
+- EPUB previews with a print-page total show statistics computed from their estimated page ranges.
+- EPUB previews without a print-page total hide the statistics and show a localized explanation.
+- Median, maximum, and minimum tooltip day lists match the values and include ties; values remain keyboard accessible.
+- French and English labels, explanations, and tooltip text are available.
+- The statistics box follows the existing Neobrutalist style and causes no narrow-screen horizontal overflow.
+
+**Step 4.1 implementation notes**
+- `src/services/calculation/reading-statistics.js` is the pure page-range statistics helper. Its median day list includes all days matching either central value when the median falls between two values.
+- `public/scripts/preview-statistics.js` renders summary values and accessible hover/focus day lists. EPUB statistics are hidden unless `Book.totalPages` is present; their ranges reuse the existing estimated/exact page mapping.
+- `preview-days.js` keeps day-row formatting separate from preview orchestration so the small-file limit remains intact.
+
+---
+
 ## Step 5.0 — Browser-local saved divisions
 
 **Goal**

@@ -25,4 +25,6 @@ Interactive controls should follow the same visual language: strong ink borders,
 
 Ignored EPUB sections remain visible in a muted gray treatment with their title struck through and a clearly labeled Restore button. Keep the row readable and keyboard accessible.
 
+Reading-plan statistics use the existing pink palette, strong ink borders, and offset shadow. Day tooltips for median/extreme values must be available on hover and keyboard focus.
+
 The centered main content can grow to 1200px on wide displays, but should remain viewport-relative on small screens with no horizontal scrolling.

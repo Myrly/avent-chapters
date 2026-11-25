@@ -6,7 +6,9 @@ Step 3.0 parses EPUB 3 nav, EPUB 2 NCX, or spine XHTML headings into shared mode
 
 Keep the uploaded `File` browser-local. Parsed EPUB sections retain `startPage: null`; `epubOffset.characterOffset` is the raw whole-book position, including ignored content, while day targets exclude ignored text. Never label character-derived print pages as exact.
 
-Step 4.0 is complete. Manual and EPUB books now use the same preview route. EPUB users can edit titles, ignore/restore or remove sections, enter an optional print-page total, and apply ordered exact printed-page overrides per section; blank overrides remain estimated. Same-tab refresh/back recovery stores parsed draft data in `sessionStorage` without storing the uploaded `File`.
+Steps 4.0 and 4.1 are complete. Manual and EPUB books now use the same preview route. EPUB users can edit titles, ignore/restore or remove sections, enter an optional print-page total, and apply ordered exact printed-page overrides per section; blank overrides remain estimated. Same-tab refresh/back recovery stores parsed draft data in `sessionStorage` without storing the uploaded `File`.
+
+The shared preview includes average, median, maximum, and minimum pages/day. Median/max/min expose all matching day numbers on hover and keyboard focus. EPUB statistics use estimated page ranges when a print-page total exists; otherwise the box is hidden and the preview explains why.
 
 Step 5.0 owns long-term saved-division persistence, distinct from the step 4.0 `livrent.epub-draft` and `livrent.epub-preview` handoffs. Keep saved data local, validate/version records, and provide list, open, delete, and duplicate behavior.
 

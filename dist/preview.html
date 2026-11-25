@@ -8,6 +8,7 @@
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/styles/base.css">
     <link rel="stylesheet" href="/styles/forms.css">
+    <link rel="stylesheet" href="/styles/preview.css">
     <script type="module" src="/scripts/i18n.js"></script>
   </head>
   <body>
@@ -38,6 +39,16 @@
     <p class="status-message" data-preview-summary></p>
     <p class="status-message" data-preview-note hidden></p>
     <p class="status-message" data-preview-duplicates hidden></p>
+    <section class="plan-statistics" data-preview-statistics hidden aria-labelledby="preview-statistics-title">
+      <h2 id="preview-statistics-title" data-i18n="preview.stats.title">Reading plan statistics</h2>
+      <dl class="plan-statistics-grid">
+        <div><dt data-i18n="preview.stats.average">Average pages per day</dt><dd><span data-preview-stat="average"></span></dd></div>
+        <div><dt data-i18n="preview.stats.median">Median pages per day</dt><dd><span data-preview-stat="median"></span></dd></div>
+        <div><dt data-i18n="preview.stats.maximum">Maximum pages per day</dt><dd><span data-preview-stat="maximum"></span></dd></div>
+        <div><dt data-i18n="preview.stats.minimum">Minimum pages per day</dt><dd><span data-preview-stat="minimum"></span></dd></div>
+      </dl>
+    </section>
+    <p class="status-message" data-preview-statistics-unavailable data-i18n="preview.stats.unavailable" hidden></p>
     <ol class="division-list" data-preview-days></ol>
   </div>
   <div class="action-row">

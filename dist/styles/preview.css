@@ -1,0 +1,27 @@
+.plan-statistics {
+  margin: 1.5rem 0;
+  border: 3px solid var(--ink);
+  background: var(--pale);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 1rem;
+}
+.plan-statistics h2 { margin: 0 0 0.75rem; font-size: 1.4rem; }
+.plan-statistics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+.plan-statistics-grid > div {
+  min-width: 0;
+  border: 2px solid var(--ink);
+  background: #fff8fb;
+  padding: 0.75rem;
+}
+.plan-statistics-grid dt { font-weight: 900; }
+.plan-statistics-grid dd { margin: 0.35rem 0 0; font-size: 1.3rem; font-weight: 900; }
+.plan-statistics-grid dd span[title] { cursor: help; text-decoration: underline dotted; }
+.plan-statistics-grid dd span[title]:focus-visible {
+  outline: 3px solid var(--detail);
+  outline-offset: 3px;
+}

@@ -142,3 +142,12 @@
 - Ambiguity: none remained; blank exact-page fields explicitly retain the estimated value and physical-page overrides must be ordered. Rating: 6/6.
 - Markdown context: `AGENTS.md`, `NEXT.md`, `PLAN.md`, `TECHNOLOGIES.md`, `ARCHITECTURE.md`, `PROJECT.md`, and `STYLE.md` provided sufficient architecture and UI constraints. Rating: 6/6.
 - Validation: 46 tests pass, the static build succeeds, and browser checks exercised both shared-preview paths, EPUB edit/ignore/restore/remove, refresh/back, no-section fallback, French localization, and mobile overflow. `NEXT.md` now points to step 5.0.
+
+## Step 4.1 reading-plan statistics
+
+- Added inclusive per-day page counts and shared-preview statistics for average, median, maximum, and minimum. EPUB statistics reuse page estimates only when a total print-page count is known; otherwise the box is hidden and a localized explanation is shown.
+- Median, maximum, and minimum expose all corresponding day numbers, including ties, through hover titles and keyboard-focusable accessible labels. Values use locale-aware formatting to one decimal place at most.
+- Problem description: clear about the four metrics and day details; scope and behavior for EPUB without a print-page total were clarified before implementation. Rating: 5.5/6.
+- Ambiguity: initially “last 3” and missing EPUB pagination were unclear; user selected median/max/min day tooltips and estimated ranges only when a print-page total exists. Rating: 6/6 after clarification.
+- Markdown context: `AGENTS.md`, `NEXT.md`, `PLAN.md`, `TECHNOLOGIES.md`, `ARCHITECTURE.md`, `PROJECT.md`, and `STYLE.md` provided sufficient UI, localization, and static-app constraints. Rating: 6/6.
+- Validation: 48 tests pass, the static build succeeds, and browser checks confirmed manual and estimated EPUB statistics, hidden/unavailable state without EPUB pagination, localized tooltips, and no mobile overflow. `NEXT.md` remains on step 5.0.
