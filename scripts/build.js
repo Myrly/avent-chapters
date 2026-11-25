@@ -3,10 +3,10 @@ import ejs from "ejs";
 
 const dist = new URL("../dist/", import.meta.url);
 const pages = [
-  { name: "index", title: "Livrent | Livre de l'avent", titleKey: "title.home" },
-  { name: "manual", title: "Saisie manuelle | Livrent", titleKey: "title.manual" },
-  { name: "preview", title: "Aperçu du découpage | Livrent", titleKey: "title.preview" },
-  { name: "epub", title: "Découpage EPUB | Livrent", titleKey: "title.epub" },
+  { name: "index", title: "Chapitres de l'Avent", titleKey: "title.home" },
+  { name: "manual", title: "Saisie manuelle | Chapitres de l'Avent", titleKey: "title.manual" },
+  { name: "preview", title: "Aperçu du découpage | Chapitres de l'Avent", titleKey: "title.preview" },
+  { name: "epub", title: "Découpage EPUB | Chapitres de l'Avent", titleKey: "title.epub" },
 ];
 
 await rm(dist, { recursive: true, force: true });
