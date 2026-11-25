@@ -14,6 +14,7 @@ This file has a few guidelines of how you should answer to ANY prompt. Things yo
 - Follow `STYLE.md` for the pink palette and neobrutalist design. Use `.brutal-checkbox` for every checkbox; do not introduce browser-default checkbox styling.
 - Keep the centered main content responsive up to 1200px, and verify that new form controls do not cause horizontal overflow on small screens.
 - Preserve visible keyboard focus and the thick borders, squared corners, and offset shadows used by existing controls.
+- EPUB section ignore controls must remain reversible: ignored sections stay visible with muted styling and a clear Restore action; do not remove them from the underlying book data.
 
 ## Absolute nevers
 1. Never ever touch Git. 

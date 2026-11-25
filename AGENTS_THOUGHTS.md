@@ -112,3 +112,23 @@
 - Ambiguity: initially the threshold, within-chapter behavior, goal rounding, and default mode needed decisions; the user resolved each through the clarification form. Rating: 6/6.
 - Markdown context: project instructions, architecture, style, plan, and next-step notes provided sufficient implementation boundaries. Rating: 6/6.
 - Validation: 32 tests pass, build succeeds, and browser checks confirmed both input modes, a 30-page goal deriving 3 days for a 91-page story range, page-based starts, and localized goal summary.
+
+## Step 3.0 EPUB parsing
+
+- Implemented a browser-local ZIP/OPF parser with EPUB 3 navigation, EPUB 2 NCX, and spine-XHTML heading fallbacks. ZIP stored/deflate entries are CRC-checked and bounded; encrypted and ZIP64 archives return explicit errors.
+- Parsed books use the shared models. EPUB sections retain `startPage: null` and spine-relative `epubOffset` data so section order is never presented as printed pagination.
+- Added a bilingual EPUB upload/results view. Metadata and detected headings render locally; no-heading fallback opens manual entry in a new tab to keep the selected file in the current page.
+- Problem description: the plan provided clear parsing priority, normalization, privacy, and fallback requirements. Rating: 6/6.
+- Ambiguity: physical page numbers are unavailable in EPUB input; this is handled explicitly with null page values and preserved offsets. Rating: 6/6.
+- Markdown context: architecture, technology, plan, style, and next-step notes provided sufficient constraints and clarified that editing/page mapping belong to step 4.0. Rating: 6/6.
+- Validation: 39 tests pass, the static build succeeds, and real-browser checks parsed a deflated EPUB with native `DOMParser`, confirmed localized results, verified the no-heading manual fallback retains the selected file, and found no narrow-screen overflow.
+
+## Step 3.1 EPUB print-page estimates and ignored sections
+
+- Added cumulative spine character offsets, character-weighted day division, optional estimated print-page markers, shared 24-day/pages-per-day goals, and reversible ignore/restore controls. Ignored text is excluded from day weights while raw offsets retain its position for page estimates.
+- Updated the plan, roadmap, architecture, UI guidance, style conventions, and next-step handoff. No dependencies or server-side EPUB handling were added.
+- Browser verification caught and fixed two UI defects: section cards were not being appended as elements, and editing goal inputs did not recalculate the displayed plan. Confirmed estimated pages, character-only output, pages-per-day recalculation, ignore/restore and all-ignored feedback, French/English copy, and no mobile horizontal overflow.
+- Problem description: clear and actionable, with concrete requirements for optional pagination, balancing behavior, and reversible ignored sections. Rating: 6/6.
+- Ambiguity: none remained; prior clarification specified the 24-day default, page-goal availability, and ignored-section weighting. Rating: 6/6.
+- Markdown context: reviewed `AGENTS.md`, `NEXT.md`, `TECHNOLOGIES.md`, `ARCHITECTURE.md`, `PROJECT.md`, and `STYLE.md`; these provided sufficient boundaries and UI guidance. Rating: 6/6.
+- Validation: all 43 tests pass, the static build succeeds, and browser checks exercised the complete step 3.1 page flow with a local EPUB fixture.

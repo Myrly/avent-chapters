@@ -1,6 +1,7 @@
 import { createBook } from "../data/models/book.js";
 import { createSection } from "../data/models/section.js";
 import { normalizeSections } from "./calculation/normalize.js";
+import { deriveDayCountFromPages } from "./calculation/page-goal.js";
 
 export function parseManualBook(input, { confirmDuplicates = false } = {}) {
   const issues = [];
@@ -36,7 +37,7 @@ export function parseManualBook(input, { confirmDuplicates = false } = {}) {
     ? uniqueSections[0].startPage
     : 1;
   const dayCount = divisionMode === "pagesPerDay"
-    ? deriveDayCount(totalPages, storyStartPage, pagesPerDayGoal)
+    ? deriveDayCountFromPages(totalPages, storyStartPage, pagesPerDayGoal)
     : requestedDayCount;
   const normalized = normalizeSections(uniqueSections).map((section) =>
     createSection(section),
@@ -52,11 +53,6 @@ export function parseManualBook(input, { confirmDuplicates = false } = {}) {
     sections: normalized,
   });
   return { book, issues: [], duplicatePages };
-}
-
-function deriveDayCount(totalPages, storyStartPage, pagesPerDayGoal) {
-  const storyPageCount = totalPages - storyStartPage + 1;
-  return Math.max(1, Math.round(storyPageCount / pagesPerDayGoal));
 }
 
 function parseSections(rows, totalPages, issues) {

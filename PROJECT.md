@@ -1,7 +1,7 @@
 This file contains a description of the project for context, as well as a map of the steps that will occur in order to achieve the project.
 
 ## Project explanation 
-This project aims to let anyone divide any book into however many days they wish (default 24), to help them have a daily routine, or christmas advent calendar. The calculation is done using an epub file's headings, or manually inputted chapter starts. In order to avoid cutting in the middle of a chapter. The last page of the story is also required. The app then outputs on which page to start every day, aka on which page to put some marker if you wish to replicate advent novels at best. The app also outputs a new epub file with the dividers added. 
+This project aims to let anyone divide any book into however many days they wish (default 24), to help them have a daily routine, or christmas advent calendar. The calculation is done using an epub file's headings, or manually inputted chapter starts. In manual mode, the last page of the story is required; EPUB mode can estimate reading positions by text length and optionally map them to an entered print-edition page count. The app then outputs on which page to start every day, aka on which page to put some marker if you wish to replicate advent novels at best. The app also outputs a new epub file with the dividers added. 
 
 ## Project roadmap
 01. Set up technos, quite short in this project. Including the icon to use in browser's tab. ('./icon.png', move, rename, then remove this paranthesis, if needed)
@@ -12,6 +12,7 @@ This project aims to let anyone divide any book into however many days they wish
 02.3. Widen the responsive page layout and style all checkboxes consistently with the site's neobrutalist visual system.
 02.4. Support sparse-section page splits when section starts are below 65% of requested days, and allow setting an approximate pages-per-day goal instead of a fixed day count.
 03. Parse EPUB metadata and normalize its navigation and section structure to the shared book/section model.
+03.1. Let EPUB users provide an optional print-page total, balance days by readable characters when absent, and ignore/restore detected sections without losing their physical positions.
 04. Integrate EPUB and manual workflows into the shared preview; allow users to review and correct parsed sections and physical page mapping when available.
 05. Implement page where all user's divisions are listed, clicking the card opens the details. These are stocked in the cookies.
 06. Implement core calculation of divisions, making sure to have the most equitable pages per day, but never stopping outside of a chapter.

@@ -1,6 +1,6 @@
 # Implementation Plan
 
-**step 2.0**
+**step 3.1**
 
 ## How to use this plan
 - This file is split into implementation prompts. Steps 1.0 and 1.1 establish the static build and core calculation spike; complete step 1.5, then step 1.6, before moving to step 2.0.
@@ -312,6 +312,41 @@ Classify headings as prologue, epilogue, part, chapter, author note, or generic 
 - A broken or unsupported file produces a useful error and does not corrupt state.
 - Parsed output is the shared normalized section model.
 - No upload leaves the user's browser.
+
+**Step 3.0 implementation notes**
+- `src/services/epub/parse.js` reads container/OPF metadata and `src/services/epub/navigation.js` prefers EPUB 3 nav, then EPUB 2 NCX, then spine XHTML headings.
+- EPUB sections use the shared `Section` model with `startPage: null` and `epubOffset`; page order is not represented as a printed-page estimate. `epubOffset.characterOffset` is measured in spine reading order.
+- `epub.html` reports metadata and detected sections in French/English. If no headings exist, the selected file stays in the current page and manual entry opens in a new tab.
+- The parser runs in the browser, has no external package dependency, and rejects malformed/unsupported archives with localized errors. Step 4.0 still owns section editing, user-corrected physical-page mapping, and preview integration.
+
+---
+
+## Step 3.1 — EPUB print-page estimates and ignored sections
+
+**Goal**
+Balance EPUB reading days by readable character count, optionally estimate print-page markers, and let users skip irrelevant sections.
+
+**Implementation prompt**
+Add an optional positive integer for total pages in the printed edition. Always let users choose a day goal: reuse manual mode with 24 days by default; enable the pages-per-day goal only when a valid print-page total is supplied, deriving the day count through the shared page-goal helper.
+
+Measure cumulative text-character offsets in spine order and retain them in each section's `epubOffset`. Without a print-page total, divide by readable characters, respecting chapter boundaries and applying the existing 65% sparse-section / 20% boundary-preference policy in character units. Do not display page numbers in this mode. With a print-page total, estimate page markers from raw whole-book character offsets and label them as estimates; edition-specific typography can change the result.
+
+Provide an Ignore/Restore control on every detected section. Ignored rows remain visible but muted and can be restored. An ignored section's text is excluded from day-balance weights, while its raw character position remains in the full-book coordinate system used for print-page estimation.
+
+**Acceptance checks**
+- The total printed-page field is optional; blank input still produces a character-balanced plan.
+- Fixed days defaults to 24. Pages-per-day is unavailable until a valid print-page total is entered.
+- Supplied page totals produce estimated, not exact, printed-page markers based on character positions.
+- Ignoring and restoring sections updates the plan immediately; ignored text is skipped in reading weights but retained in physical-page offsets.
+- Ignoring every section produces a clear prompt to restore at least one.
+- All controls, status messages, and day-plan output have French and English translations.
+- Tests cover character-weighted boundaries, page estimates, ignored ranges, restore behavior, invalid goals, and localization.
+- Browser checks confirm the selected EPUB remains local and the page has no narrow-screen overflow.
+
+**Implementation notes**
+- Reuse `deriveDayCountFromPages()` from `src/services/calculation/page-goal.js` and `shouldUsePageSplits()` from the shared calculation service.
+- `Section.startPage` remains `null` for parsed EPUB content. Estimated print-page starts belong to the EPUB day-plan output and must not overwrite parser offsets.
+- The user selected: fixed days defaulting to 24; pages-per-day mode only when print-page total exists; ignored section text excluded from balance while its raw position remains for print-page mapping.
 
 ---
 

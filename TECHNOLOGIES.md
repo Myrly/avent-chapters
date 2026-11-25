@@ -1,7 +1,7 @@
 This file lists the project's selected technologies and their expected use. Ask before adding a new technology category or dependency.
 
 - **HTML and vanilla CSS** — static user interface and styling.
-- **Vanilla browser JavaScript** — client-side French/English localization and interactive behavior.
+- **Vanilla browser JavaScript** — client-side French/English localization, interactive behavior, and EPUB parsing through native `File`, `DOMParser`, and `DecompressionStream` APIs; no ZIP/XML dependency is added.
 - **Browser `sessionStorage`** — temporary same-tab transfer of a validated manual book to its division preview; it is not long-term persistence.
 - **EJS** — build-time templates compiled into static HTML; not rendered by the server at request time.
 - **Node.js built-in `node:http`** — serves the generated `dist/` directory over HTTP. No web framework or application backend is used.
