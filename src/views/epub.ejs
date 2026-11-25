@@ -47,7 +47,6 @@
     </dl>
     <h3 data-i18n="epub.sections_title">Sections détectées</h3>
     <ul class="epub-section-list" data-epub-sections></ul>
-    <br>
     <p class="status-message" data-epub-page-note data-i18n="epub.page_note"></p>
     <p class="status-message" data-epub-no-headings data-i18n="epub.no_headings" hidden></p>
     <p class="status-message" data-epub-no-active-sections data-i18n="epub.no_active_sections" hidden></p>
@@ -55,7 +54,10 @@
       <h3 data-i18n="epub.plan_title">Reading plan</h3>
       <ol class="division-list" data-epub-days></ol>
     </section>
-    <a class="button button-secondary" href="/manual.html" target="_blank" rel="noopener" data-epub-manual data-i18n="epub.manual_fallback" hidden>
+    <button class="button" type="button" data-epub-continue data-i18n="epub.continue" hidden>
+      Continuer vers l'aperçu
+    </button>
+    <a class="button button-secondary" href="/manual.html" data-epub-manual data-i18n="epub.manual_fallback" hidden>
       Continuer en saisie manuelle
     </a>
   </section>

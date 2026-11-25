@@ -132,3 +132,13 @@
 - Ambiguity: none remained; prior clarification specified the 24-day default, page-goal availability, and ignored-section weighting. Rating: 6/6.
 - Markdown context: reviewed `AGENTS.md`, `NEXT.md`, `TECHNOLOGIES.md`, `ARCHITECTURE.md`, `PROJECT.md`, and `STYLE.md`; these provided sufficient boundaries and UI guidance. Rating: 6/6.
 - Validation: all 43 tests pass, the static build succeeds, and browser checks exercised the complete step 3.1 page flow with a local EPUB fixture.
+
+## Step 4.0 shared preview integration
+
+- Connected manual and EPUB planning to one preview route and day result shape. Added manual author metadata, editable/removable EPUB sections, reversible ignore/restore, optional exact per-section print-page overrides with interpolation for blank values, and same-tab draft recovery that never stores the uploaded `File`.
+- When no usable EPUB sections remain, manual entry opens in the same tab with the parsed title and author prefilled. The new shared preview copy is bilingual; translation dictionaries were split by locale/domain to stay within the project file-size limit.
+- Browser verification exposed and fixed two UI defects: parsing status text remained visible after successful parsing, and section page-override controls did not appear immediately when a print-page total was entered. Confirmed page mapping, preview/back/refresh preservation, all-section manual fallback, manual author summary, French copy, and no mobile overflow.
+- Problem description: clear and actionable, with step 4.0 scope and the previous per-section exact-page decision available. Rating: 6/6.
+- Ambiguity: none remained; blank exact-page fields explicitly retain the estimated value and physical-page overrides must be ordered. Rating: 6/6.
+- Markdown context: `AGENTS.md`, `NEXT.md`, `PLAN.md`, `TECHNOLOGIES.md`, `ARCHITECTURE.md`, `PROJECT.md`, and `STYLE.md` provided sufficient architecture and UI constraints. Rating: 6/6.
+- Validation: 46 tests pass, the static build succeeds, and browser checks exercised both shared-preview paths, EPUB edit/ignore/restore/remove, refresh/back, no-section fallback, French localization, and mobile overflow. `NEXT.md` now points to step 5.0.

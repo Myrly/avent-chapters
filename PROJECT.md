@@ -13,7 +13,7 @@ This project aims to let anyone divide any book into however many days they wish
 02.4. Support sparse-section page splits when section starts are below 65% of requested days, and allow setting an approximate pages-per-day goal instead of a fixed day count.
 03. Parse EPUB metadata and normalize its navigation and section structure to the shared book/section model.
 03.1. Let EPUB users provide an optional print-page total, balance days by readable characters when absent, and ignore/restore detected sections without losing their physical positions.
-04. Integrate EPUB and manual workflows into the shared preview; allow users to review and correct parsed sections and physical page mapping when available.
+04. Integrate EPUB and manual workflows into the shared preview; allow users to edit, ignore/restore, or remove parsed sections, optionally correct each section's printed start page, and preserve same-tab EPUB draft progress without storing the uploaded file.
 05. Implement page where all user's divisions are listed, clicking the card opens the details. These are stocked in the cookies.
 06. Implement core calculation of divisions, making sure to have the most equitable pages per day, but never stopping outside of a chapter.
 07. Display the separators

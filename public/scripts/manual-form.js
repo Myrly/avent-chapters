@@ -2,6 +2,11 @@ import { messages } from "./i18n-messages.js";
 import { parseManualBook } from "./domain/services/manual-input.js";
 import { createSectionRows } from "./manual-section-rows.js";
 import { setupDivisionGoalMode } from "./manual-division-mode.js";
+import { prefillManualFromEpub } from "./manual-epub-prefill.js";
+import {
+  renderDuplicatePageNotice,
+  renderManualIssues,
+} from "./manual-form-feedback.js";
 
 const form = document.querySelector("[data-manual-form]");
 if (form) initializeManualForm(form);
@@ -17,6 +22,7 @@ function initializeManualForm(form) {
   let activeDuplicatePages = [];
   const rows = createSectionRows(list, handleChange, () => addButton.focus());
   const divisionGoal = setupDivisionGoalMode(form, handleChange);
+  prefillManualFromEpub(form);
   rows.add();
 
   form.addEventListener("input", (event) => {
@@ -64,6 +70,7 @@ function initializeManualForm(form) {
   function submitManualBook() {
     const result = parseManualBook({
       title: form.elements.title.value,
+      author: form.elements.author.value,
       edition: form.elements.edition.value,
       totalPages: form.elements.totalPages.value,
       ...divisionGoal.values(),
@@ -77,6 +84,7 @@ function initializeManualForm(form) {
       return;
     }
     try {
+      sessionStorage.removeItem("livrent.epub-preview");
       sessionStorage.setItem("livrent.manual-preview", JSON.stringify({
         book: result.book,
         duplicatePages: result.duplicatePages,
@@ -90,21 +98,12 @@ function initializeManualForm(form) {
 
   function showIssues(issues) {
     activeIssues = issues;
-    errors.replaceChildren();
-    for (const issue of issues) {
-      const item = document.createElement("li");
-      item.textContent = currentMessages()[`manual.error.${issue.code}`]
-        .replace("{row}", String(issue.row || ""));
-      errors.append(item);
-    }
-    errors.hidden = issues.length === 0;
+    renderManualIssues(errors, issues, currentMessages());
   }
 
   function renderDuplicatePages(pages) {
     activeDuplicatePages = pages;
-    confirmation.hidden = false;
-    duplicatePages.textContent = currentMessages()["manual.duplicate_pages"]
-      .replace("{pages}", pages.join(", "));
+    renderDuplicatePageNotice(confirmation, duplicatePages, pages, currentMessages());
   }
 }
 

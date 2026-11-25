@@ -1,6 +1,7 @@
 import { setupDivisionGoalMode } from "./manual-division-mode.js";
 import { deriveDayCountFromPages } from "./domain/services/calculation/page-goal.js";
 import { calculateEpubDivision } from "./domain/services/epub/divide.js";
+import { pageOverrideError } from "./domain/services/epub/page-map.js";
 
 export function bindEpubGoalControls(form, onChange) {
   setupDivisionGoalMode(form, onChange);
@@ -41,6 +42,8 @@ export function prepareEpubPlan(book, form) {
   if (dayCount === null) return { errorKey: "epub.error.dayCountInvalid" };
   if (!book.characterCount) return { errorKey: "epub.error.noReadableText" };
 
+  const pageError = pageOverrideError({ ...book, totalPages });
+  if (pageError) return { errorKey: pageError };
   Object.assign(book, {
     totalPages,
     dayCount,

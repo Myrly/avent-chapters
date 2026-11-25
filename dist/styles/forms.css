@@ -91,24 +91,29 @@
 .epub-results .button { margin-top: 0.5rem; }
 .epub-section-list { display: grid; gap: 0.65rem; margin: 0; padding: 0; list-style: none; }
 .epub-section-card {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(9rem, 0.65fr) auto;
   min-width: 0;
-  align-items: center;
-  justify-content: space-between;
+  align-items: end;
   gap: 1rem;
   border: 2px solid var(--ink);
   background: #fff8fb;
   padding: 0.65rem;
 }
-.epub-section-title { min-width: 0; overflow-wrap: anywhere; font-weight: 800; }
-.epub-section-card .button { flex: 0 0 auto; margin: 0; }
+.epub-section-title-field { min-width: 0; }
+.epub-section-title-field input { font-weight: 800; }
+.epub-section-page-field { min-width: 0; }
+.epub-section-page-field small { font-size: 0.8rem; }
+.epub-section-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.epub-section-card .button { margin: 0; }
 .epub-section-card.is-ignored { border-color: #72666b; background: #e6e1e3; color: #645a5e; }
-.epub-section-card.is-ignored .epub-section-title { text-decoration: line-through; }
+.epub-section-card.is-ignored .epub-section-title-field input { text-decoration: line-through; }
 .epub-plan { margin-top: 1.5rem; border-top: 3px solid var(--ink); padding-top: 1rem; }
 [hidden] { display: none !important; }
 @media (max-width: 700px) {
   .manual-fields, .section-fields { grid-template-columns: 1fr; }
   .section-row { grid-template-columns: 1fr; }
   .section-actions { align-items: center; }
-  .epub-section-card { align-items: flex-start; }
+  .epub-section-card { grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+  .epub-section-actions { align-items: center; }
 }

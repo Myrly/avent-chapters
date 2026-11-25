@@ -6,6 +6,7 @@ import { calculateDivision } from "../src/services/calculation/division.js";
 test("parses a manual book into the shared model and normalizes section order", () => {
   const result = parseManualBook({
     title: "  A Book  ",
+    author: "  A Writer  ",
     edition: "  Paperback  ",
     totalPages: "240",
     dayCount: "24",
@@ -18,6 +19,7 @@ test("parses a manual book into the shared model and normalizes section order", 
 
   assert.deepEqual(result.issues, []);
   assert.equal(result.book.title, "A Book");
+  assert.equal(result.book.author, "A Writer");
   assert.equal(result.book.edition, "Paperback");
   assert.equal(result.book.source, "manual");
   assert.equal(result.book.storyStartPage, 1);

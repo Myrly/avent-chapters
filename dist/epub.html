@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#602437">
-    <title data-i18n="title.epub">Découpage EPUB | Livrent</title>
+    <title data-i18n="title.epub">Découpage EPUB | Chapitres de l&#39;Avent</title>
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/styles/base.css">
     <link rel="stylesheet" href="/styles/forms.css">
@@ -12,7 +12,7 @@
   </head>
   <body>
     <header class="site-header">
-  <a class="brand" href="/index.html">Livrent</a>
+  <a class="brand" href="/index.html">Chapitres de l'Avent</a>
   <div class="header-actions">
     <nav class="nav" aria-label="Navigation principale" data-i18n-aria-label="nav.label">
       <a class="button button-small" href="/manual.html" data-i18n="nav.manual">Saisie manuelle</a>
@@ -77,7 +77,6 @@
     </dl>
     <h3 data-i18n="epub.sections_title">Sections détectées</h3>
     <ul class="epub-section-list" data-epub-sections></ul>
-    <br>
     <p class="status-message" data-epub-page-note data-i18n="epub.page_note"></p>
     <p class="status-message" data-epub-no-headings data-i18n="epub.no_headings" hidden></p>
     <p class="status-message" data-epub-no-active-sections data-i18n="epub.no_active_sections" hidden></p>
@@ -85,7 +84,10 @@
       <h3 data-i18n="epub.plan_title">Reading plan</h3>
       <ol class="division-list" data-epub-days></ol>
     </section>
-    <a class="button button-secondary" href="/manual.html" target="_blank" rel="noopener" data-epub-manual data-i18n="epub.manual_fallback" hidden>
+    <button class="button" type="button" data-epub-continue data-i18n="epub.continue" hidden>
+      Continuer vers l'aperçu
+    </button>
+    <a class="button button-secondary" href="/manual.html" data-epub-manual data-i18n="epub.manual_fallback" hidden>
       Continuer en saisie manuelle
     </a>
   </section>

@@ -6,6 +6,7 @@ import { deriveDayCountFromPages } from "./calculation/page-goal.js";
 export function parseManualBook(input, { confirmDuplicates = false } = {}) {
   const issues = [];
   const title = String(input.title || "").trim();
+  const author = String(input.author || "").trim();
   const edition = String(input.edition || "").trim();
   const totalPages = parsePositiveInteger(input.totalPages);
   const divisionMode = input.divisionMode === "pagesPerDay" ? "pagesPerDay" : "dayCount";
@@ -44,6 +45,7 @@ export function parseManualBook(input, { confirmDuplicates = false } = {}) {
   );
   const book = createBook({
     title,
+    author,
     edition,
     totalPages,
     storyStartPage,

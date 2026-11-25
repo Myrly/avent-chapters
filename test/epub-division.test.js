@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { createBook } from "../src/data/models/book.js";
 import { createSection } from "../src/data/models/section.js";
 import { calculateEpubDivision } from "../src/services/epub/divide.js";
+import { pageOverrideError } from "../src/services/epub/page-map.js";
 import { classifyHeading } from "../src/services/epub/classify-heading.js";
 
 test("heading classification recognizes common section labels conservatively", () => {
@@ -79,4 +80,49 @@ test("ignoring every section produces no division until one is restored", () => 
   assert.deepEqual(calculateEpubDivision(book), []);
   book.sections[0].ignored = false;
   assert.equal(calculateEpubDivision(book).length, 4);
+});
+
+test("exact section page overrides calibrate estimated starts in the shared day shape", () => {
+  const book = createBook({
+    source: "epub",
+    characterCount: 1000,
+    totalPages: 100,
+    dayCount: 4,
+    sections: [0, 250, 500, 750].map((characterOffset, index) =>
+      createSection({
+        title: `Chapter ${index + 1}`,
+        startPage: characterOffset === 500 ? 61 : null,
+        epubOffset: { spineIndex: index, characterOffset },
+      }),
+    ),
+  });
+  const days = calculateEpubDivision(book);
+
+  assert.deepEqual(days.map((day) => day.startPage), [1, 31, 61, 81]);
+  assert.deepEqual(days.map((day) => day.startPageIsExact), [false, false, true, false]);
+  assert.ok(days.every((day) =>
+    Object.hasOwn(day, "endPage") && Object.hasOwn(day, "targetPage") &&
+    Object.hasOwn(day, "adjusted") && Object.hasOwn(day, "epubOffset"),
+  ));
+});
+
+test("page overrides must be valid and ordered by reading position", () => {
+  const book = createBook({
+    source: "epub",
+    characterCount: 1000,
+    totalPages: 100,
+    dayCount: 2,
+    sections: [0, 500].map((characterOffset, index) =>
+      createSection({
+        title: `Chapter ${index + 1}`,
+        startPage: index === 0 ? 70 : 60,
+        epubOffset: { spineIndex: index, characterOffset },
+      }),
+    ),
+  });
+
+  assert.equal(pageOverrideError(book), "epub.error.pageOverrideOrder");
+  assert.throws(() => calculateEpubDivision(book), RangeError);
+  book.sections[1].startPage = 101;
+  assert.equal(pageOverrideError(book), "epub.error.pageOverrideInvalid");
 });

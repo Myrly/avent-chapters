@@ -1,6 +1,6 @@
 # Implementation Plan
 
-**step 3.1**
+**step 5.0**
 
 ## How to use this plan
 - This file is split into implementation prompts. Steps 1.0 and 1.1 establish the static build and core calculation spike; complete step 1.5, then step 1.6, before moving to step 2.0.
@@ -358,14 +358,28 @@ Create the upload entry flow and merge EPUB metadata with user-provided values.
 **Implementation prompt**
 Build a page where the user can upload an EPUB or choose manual entry. After EPUB parsing, show detected title/author/sections and allow corrections or removal of false headings. When a physical page count is available, map EPUB section offsets to the book's numbered pages; otherwise retain spine-relative section positions and explain that page markers are estimates.
 
-Add EPUB and manual submit paths to the same preview route. Preserve parsed data in memory when navigating back and prevent accidental loss on refresh through the save mechanism in step 5.0.
+Add EPUB and manual submit paths to the same preview route. Keep an EPUB draft in same-tab `sessionStorage` so edits and form goals survive navigation and refresh; do not serialize the uploaded `File` or its bytes. This temporary draft is separate from step 5.0 saved divisions.
+
+For EPUBs, always request an optional total print-page count. Without it, balance by readable character positions and do not display printed page numbers. With it, show estimated page markers and let the user enter an exact printed start page for each detected section; blank overrides keep the estimate. Validate exact pages as positive, within the print-page total, and increasing in section order.
+
+Allow section titles to be edited, ignored/restored, or removed. If parsing finds no usable headings, or the user removes all sections, offer manual entry in the same tab and prefill the detected title and author. Add an optional author field to manual entry and show it in the shared preview.
 
 **Acceptance checks**
 - EPUB upload is optional and manual mode remains fully usable.
-- Detected sections can be edited before calculation.
-- Missing or no heading data triggers the manual fallback without a crash.
-- The result shape matches step 1.1.
+- Detected section titles can be edited; ignored sections remain visible and restorable; removed sections are excluded.
+- Exact per-section page overrides validate range and reading order; blank overrides retain interpolated estimates.
+- A missing print-page count leaves EPUB page markers unset and still produces a character-weighted plan.
+- Missing headings or removal of every section offers same-tab manual entry with title/author prefilled.
+- Manual and EPUB workflows produce the shared preview day shape from step 1.1, with source-appropriate copy.
+- EPUB edits, goals, and page overrides survive same-tab refresh/back navigation without retaining the uploaded file.
 - The browser never sends EPUB content to a server.
+
+**Step 4.0 implementation notes**
+- `src/services/epub/page-map.js` validates exact section starts and interpolates estimated print-page positions between exact anchors. `Section.startPage` contains only user-entered exact overrides; estimates remain derived values.
+- `src/services/calculation/book-division.js` dispatches both manual and EPUB books to the common preview contract.
+- `livrent.epub-draft` and `livrent.epub-preview` are transient `sessionStorage` handoffs. The draft stores parsed book/form state, never the `File`; persistent saved divisions remain step 5.0 work.
+- The EPUB page can return to editing from the preview. If no sections remain, manual entry receives the EPUB title and author. Manual submissions use the same preview page and include the optional author in its summary.
+- Focused tests cover page mapping, override order, shared day shape, and manual author parsing; browser checks cover import, edits, ignore/restore/remove, preview, fallback, refresh/back, localization, and narrow-screen overflow.
 
 ---
 
