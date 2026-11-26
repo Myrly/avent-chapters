@@ -1,6 +1,6 @@
 # Next Implementation Step
 
-Proceed to step 5.1 in PLAN.md: review and fix storage/privacy edge cases.
+Proceed to step 6.0 in PLAN.md: implement and verify the production equitable division calculation.
 
 Step 3.0 parses EPUB 3 nav, EPUB 2 NCX, or spine XHTML headings into shared models. Step 3.1 adds cumulative character offsets, optional print-page estimates, a 24-day default, the shared pages-per-day goal, and reversible ignored-section state.
 
@@ -12,6 +12,6 @@ The shared preview includes average, median, maximum, and minimum pages/day. Med
 
 Step 5.0 automatically saves calculated previews to versioned localStorage records, indexed by opaque IDs in a cookie. The list supports opening, duplicating, and confirmed deletion; it warns when persistent storage is unavailable. The temporary handoffs remain separate. Session fallback survives same-tab navigation; memory-only fallback cannot survive navigation or refresh.
 
-For step 5.1, follow the plan's targeted storage/privacy edge cases. Keep unsupported versions intact and avoid exposing book details or EPUB bytes in cookies.
+Step 5.1 preserves valid duplicate-ID records with collision-checked IDs, retains unsupported versions, and warns while keeping temporary fallback snapshots separate from permanent storage. Do not silently merge or overwrite permanent data when access returns; cookies contain only opaque IDs, never book details or EPUB bytes.
 
 Preserve `Book.storyStartPage` and `Book.pagesPerDayGoal`, manual author metadata, and the shared preview day shape. Keep browser-local processing and the static-only server boundary; localize new copy in French and English and follow `AGENTS.md` / `STYLE.md`.

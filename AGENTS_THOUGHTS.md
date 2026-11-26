@@ -168,3 +168,12 @@
 - Ambiguity: none for the three navigation pages; pages without a corresponding tab have no active tab. Rating: 6/6.
 - Markdown context: the existing style and architecture guidance provided sufficient context. Rating: 6/6.
 - Validation: seven targeted navigation/localization tests pass, the static build succeeds, and a browser check confirms EPUB uses the primary colors and `aria-current` while the other tabs remain secondary.
+
+## Step 5.1 storage revisions
+
+- Valid duplicate-ID plans are retained with collision-checked opaque IDs; repairs are persisted on read, and new saves and duplicates cannot replace an existing plan on an ID collision. Empty malformed JSON is quarantined rather than treated as an empty collection.
+- Temporary session/memory snapshots stay separate from permanent storage after recovery, with localized warnings; memory is isolated per store. Unsupported schema versions and unquarantinable malformed data remain untouched.
+- Problem description: the roadmap specified the edge cases and privacy boundaries clearly. Rating: 5.5/6.
+- Ambiguity: duplicate-ID and storage-recovery policies required clarification and were confirmed by the user. Rating: 6/6.
+- Markdown context: project guidance and prior handoff supplied sufficient storage, localization, and architecture context. Rating: 6/6.
+- Validation: 65 tests pass and the build succeeds. An isolated in-memory check of the built preview verified autosave identity and temporary-warning propagation; browser UI verification was unavailable because the browser could not access the local server or create an isolated context.

@@ -1,8 +1,10 @@
 import { isValidSavedRecord, migrateSavedData } from "./saved-validation.js";
 import { cookieMatches, updateCookie } from "./saved-cookie.js";
+import { createSavedId, uniqueSavedId } from "./saved-id.js";
+import { quarantineSavedData, repairSavedRecords } from "./saved-recovery.js";
 const KEY = "livrent.saved-divisions";
-let memory = null;
-export function createSavedStore({ local, session, cookies }) {
+export function createSavedStore({ local, session, cookies, generateId = createSavedId }) {
+  let memory = null;
   function read() {
     let raw;
     let mode = "local";
@@ -29,50 +31,29 @@ export function createSavedStore({ local, session, cookies }) {
         raw = memory;
       }
     }
-    if (!raw) return { records: [], mode, warning: mode !== "local" };
+    if (raw === null) return { records: [], mode, warning: mode !== "local" };
     let parsed;
     try {
       parsed = JSON.parse(raw);
     } catch (error) {
       if (!(error instanceof SyntaxError)) throw error;
       console.warn("Saved division data is corrupt:", error);
-      return quarantine(raw, mode, local, session);
+      if (mode === "memory") memory = null;
+      const result = quarantineSavedData(KEY, raw, mode, local, session);
+      return result.blocked ? result : { records: [], ...write([], mode), corrupt: true };
     }
     const data = migrateSavedData(parsed);
     if (!data) return { records: [], mode, warning: true, blocked: true };
     if (data.records.some((record) => Number.isInteger(record?.version) && record.version > 1)) {
       return { records: [], mode, warning: true, blocked: true };
     }
-    const ids = new Set();
-    const records = data.records.filter((record) => {
-      if (!isValidSavedRecord(record) || ids.has(record.id)) return false;
-      ids.add(record.id);
-      return true;
-    });
-    const corrupt = records.length !== data.records.length;
-    if (corrupt) console.warn("Invalid saved divisions were omitted.");
+    const { records, corrupt } = repairSavedRecords(data.records, generateId);
+    if (corrupt) console.warn("Invalid or duplicate saved divisions were repaired.");
+    if (corrupt) return { records, ...write(records, mode), corrupt: true };
     return {
       records, mode, corrupt,
       warning: mode !== "local" || corrupt || !cookieMatches(cookies, records),
     };
-  }
-  function quarantine(raw, mode, local, session) {
-    if (mode === "memory") {
-      memory = null;
-      return { records: [], mode, warning: true, corrupt: true };
-    }
-    const storage = mode === "local" ? local : session;
-    try {
-      if (storage.getItem(`${KEY}.corrupt`) !== null) {
-        return { records: [], mode, warning: true, blocked: true };
-      }
-      storage.setItem(`${KEY}.corrupt`, raw);
-      storage.setItem(KEY, JSON.stringify({ version: 1, records: [] }));
-      return { records: [], mode, warning: true, corrupt: true };
-    } catch (error) {
-      console.warn("Unable to quarantine corrupt saved divisions:", error);
-      return { records: [], mode, warning: true, blocked: true };
-    }
   }
   function write(records, mode = "local") {
     const raw = JSON.stringify({ version: 1, records });
@@ -108,13 +89,19 @@ export function createSavedStore({ local, session, cookies }) {
       if (!isValidSavedRecord(record)) throw new RangeError("Invalid saved division");
       return change((records) => [record, ...records.filter((item) => item.id !== record.id)]);
     },
+    saveNew(record) {
+      if (!isValidSavedRecord(record)) throw new RangeError("Invalid saved division");
+      let savedId = record.id;
+      const result = change((records) => {
+        const ids = new Set(records.map((item) => item.id));
+        if (ids.has(savedId)) savedId = uniqueSavedId(ids, generateId);
+        return [{ ...record, id: savedId }, ...records];
+      });
+      return { ...result, savedId };
+    },
     remove(id) {
       return change((records) => records.filter((record) => record.id !== id));
     },
-    clean() {
-      const current = read();
-      if (!current.corrupt || current.blocked) return current;
-      return { records: current.records, ...write(current.records, current.mode), corrupt: true };
-    },
+    clean: read,
   };
 }

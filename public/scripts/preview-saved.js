@@ -1,22 +1,25 @@
 import { createSavedRecord, savedStore } from "./saved-storage.js";
+import { savedWarning } from "./saved-status.js";
 
 export function readSavedPreview(id) {
   const result = savedStore.clean();
   if (result.blocked) return { error: "saved.blocked" };
   const record = result.records.find((item) => item.id === id);
   if (!record) return { error: "saved.missing" };
-  return { payload: { book: record.book }, warning: result.warning || result.corrupt };
+  return { payload: { book: record.book }, warning: savedWarning(result) };
 }
 
 export function autosavePreview(payload, key) {
   const record = createSavedRecord(payload.book, payload.savedId);
-  const result = savedStore.save(record);
+  const result = payload.savedId ? savedStore.save(record) : savedStore.saveNew(record);
   if (result.blocked) return "saved.blocked";
   try {
-    sessionStorage.setItem(key, JSON.stringify({ ...payload, savedId: record.id }));
+    sessionStorage.setItem(key, JSON.stringify({
+      ...payload, savedId: result.savedId || record.id,
+    }));
   } catch (error) {
     console.warn("Unable to preserve the saved preview identity:", error);
-    return "saved.warning";
+    return savedWarning(result) || "saved.warning";
   }
-  return result.warning ? "saved.warning" : result.corrupt ? "saved.corrupt" : "saved.auto";
+  return savedWarning(result) || "saved.auto";
 }

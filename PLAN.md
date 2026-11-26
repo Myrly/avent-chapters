@@ -1,6 +1,6 @@
 # Implementation Plan
 
-**step 5.1**
+**step 6.0**
 
 ## How to use this plan
 - This file is split into implementation prompts. Steps 1.0 and 1.1 establish the static build and core calculation spike; complete step 1.5, then step 1.6, before moving to step 2.0.
@@ -437,11 +437,18 @@ Automatically save a calculated plan when it reaches the preview; reopening or r
 
 ## Step 5.1 — Storage revisions
 
+**Status:** Complete.
+
 **Goal**
 Reserve a prompt for storage and privacy edge cases found in step 5.0.
 
 **Implementation prompt**
 Fix cookie/local-storage defects and add focused tests for blocked storage, quota failures, corrupt entries, stale schema versions, and duplicate IDs. Do not alter EPUB/PDF behavior unless the saved record directly prevents one of those flows.
+
+**Implementation notes**
+- Preserve every valid duplicate-ID record, assigning collision-checked opaque IDs to extras; persist repairs on cleanup. New autosaves and duplicates also avoid replacing existing records on an ID collision.
+- Continue displaying and editing a warned temporary session/memory snapshot even if permanent storage recovers; never silently merge it into or overwrite potentially newer permanent data. Session snapshots survive same-tab navigation; memory does not.
+- Quarantine malformed or empty JSON when possible; retain unsupported versions and collections that cannot be quarantined. Invalid individual records are still removed. Cookies contain only bounded opaque IDs, and cookie failures warn without discarding local records.
 
 ---
 

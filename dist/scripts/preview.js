@@ -12,7 +12,7 @@ function loadPreview() {
   if (savedId !== null) {
     const saved = readSavedPreview(savedId);
     if (saved.error) return showError(saved.error);
-    return showPayload(saved.payload, saved.warning ? "saved.warning" : "", true);
+    return showPayload(saved.payload, saved.warning, true);
   }
   let serialized;
   let key;

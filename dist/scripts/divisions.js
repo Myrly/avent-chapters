@@ -1,6 +1,7 @@
 import { messages } from "./i18n-messages.js";
 import { createSavedCard } from "./saved-card.js";
 import { createSavedRecord, savedStore } from "./saved-storage.js";
+import { savedWarning } from "./saved-status.js";
 
 const list = document.querySelector("[data-saved-list]");
 const warning = document.querySelector("[data-saved-warning]");
@@ -20,7 +21,7 @@ list.addEventListener("click", (event) => {
     result = savedStore.remove(record.id);
     noticeKey = result.blocked ? "" : "saved.delete_done";
   } else {
-    result = savedStore.save(createSavedRecord(record.book));
+    result = savedStore.saveNew(createSavedRecord(record.book));
     noticeKey = result.blocked ? "" : "saved.duplicate_done";
   }
   render();
@@ -32,8 +33,7 @@ function render() {
   const locale = document.documentElement.lang;
   list.replaceChildren(...result.records.map((record) => createSavedCard(record, text, locale)));
   document.querySelector("[data-saved-empty]").hidden = result.records.length > 0 || result.blocked;
-  const warningKey = result.blocked ? "saved.blocked" :
-    result.warning ? "saved.warning" : result.corrupt ? "saved.corrupt" : "";
+  const warningKey = savedWarning(result);
   warning.hidden = !warningKey;
   warning.textContent = warningKey ? text[warningKey] : "";
   notice.hidden = !noticeKey;

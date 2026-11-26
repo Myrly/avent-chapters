@@ -16,6 +16,7 @@ This project aims to let anyone divide any book into however many days they wish
 04. Integrate EPUB and manual workflows into the shared preview; allow users to edit, ignore/restore, or remove parsed sections, optionally correct each section's printed start page, and preserve same-tab EPUB draft progress without storing the uploaded file.
 04.1. Show average, median, maximum, and minimum pages per day in the shared preview; reveal corresponding median/max/min days on hover/focus and require EPUB print-page total for page statistics.
 05. Automatically save reading plans locally, list and reopen them, and offer duplicate and confirmed-delete actions. Full records stay in localStorage; a small cookie holds only opaque IDs.
+05.1. Preserve duplicate-ID plans, isolate temporary fallback copies from permanent storage, and test corrupt data, unsupported versions, blocked storage, quotas, and cookie failures.
 06. Implement core calculation of divisions, making sure to have the most equitable pages per day, but never stopping outside of a chapter.
 07. Display the separators
 07.1. Let users choose a built-in PNG design from `gallery/images/*.png` or upload a custom PNG, preview it with cover/crop, and set its transparency (0% by default).

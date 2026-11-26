@@ -1,4 +1,5 @@
 import { createSavedStore } from "./domain/services/storage/saved-store.js";
+import { createSavedId } from "./domain/services/storage/saved-id.js";
 
 const local = {
   getItem: (key) => window.localStorage.getItem(key),
@@ -11,11 +12,6 @@ const session = {
 
 export const savedStore = createSavedStore({ local, session, cookies: document });
 
-export function createSavedRecord(book, id = createId()) {
+export function createSavedRecord(book, id = createSavedId()) {
   return { version: 1, id, updatedAt: new Date().toISOString(), book };
-}
-
-function createId() {
-  const bytes = crypto.getRandomValues(new Uint8Array(16));
-  return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
