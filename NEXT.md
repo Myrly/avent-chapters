@@ -1,6 +1,6 @@
 # Next Implementation Step
 
-Proceed to step 5.0 in PLAN.md: implement browser-local saved divisions and a list/details experience.
+Proceed to step 5.1 in PLAN.md: review and fix storage/privacy edge cases.
 
 Step 3.0 parses EPUB 3 nav, EPUB 2 NCX, or spine XHTML headings into shared models. Step 3.1 adds cumulative character offsets, optional print-page estimates, a 24-day default, the shared pages-per-day goal, and reversible ignored-section state.
 
@@ -10,6 +10,8 @@ Steps 4.0 and 4.1 are complete. Manual and EPUB books now use the same preview r
 
 The shared preview includes average, median, maximum, and minimum pages/day. Median/max/min expose all matching day numbers on hover and keyboard focus. EPUB statistics use estimated page ranges when a print-page total exists; otherwise the box is hidden and the preview explains why.
 
-Step 5.0 owns long-term saved-division persistence, distinct from the step 4.0 `livrent.epub-draft` and `livrent.epub-preview` handoffs. Keep saved data local, validate/version records, and provide list, open, delete, and duplicate behavior.
+Step 5.0 automatically saves calculated previews to versioned localStorage records, indexed by opaque IDs in a cookie. The list supports opening, duplicating, and confirmed deletion; it warns when persistent storage is unavailable. The temporary handoffs remain separate. Session fallback survives same-tab navigation; memory-only fallback cannot survive navigation or refresh.
+
+For step 5.1, follow the plan's targeted storage/privacy edge cases. Keep unsupported versions intact and avoid exposing book details or EPUB bytes in cookies.
 
 Preserve `Book.storyStartPage` and `Book.pagesPerDayGoal`, manual author metadata, and the shared preview day shape. Keep browser-local processing and the static-only server boundary; localize new copy in French and English and follow `AGENTS.md` / `STYLE.md`.

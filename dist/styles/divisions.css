@@ -1,0 +1,12 @@
+.saved-list { list-style: none; display: grid; gap: 1rem; padding: 0; }
+.saved-card {
+  min-width: 0;
+  border: 3px solid var(--ink);
+  background: var(--pale);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 1rem;
+  overflow-wrap: anywhere;
+}
+.saved-card h2 { margin: 0 0 0.5rem; }
+.saved-card p { margin: 0.3rem 0; }
+.saved-card .action-row { margin-top: 1rem; }

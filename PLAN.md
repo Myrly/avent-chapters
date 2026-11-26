@@ -1,6 +1,6 @@
 # Implementation Plan
 
-**step 5.0**
+**step 5.1**
 
 ## How to use this plan
 - This file is split into implementation prompts. Steps 1.0 and 1.1 establish the static build and core calculation spike; complete step 1.5, then step 1.6, before moving to step 2.0.
@@ -418,12 +418,20 @@ Create cookie/local-storage services that save a compact division summary and ca
 
 The divisions page lists title, day count, source (EPUB/manual), updated time, and actions. Cards open a details route/page. Provide delete and duplicate actions. All state is browser-local and that limitation is visible in the UI.
 
+Automatically save a calculated plan when it reaches the preview; reopening or refreshing that preview must not create duplicates. Confirm deletion. Store full versioned records in localStorage and only opaque record IDs in the cookie index; never put book details or EPUB bytes in cookies.
+
 **Acceptance checks**
 - Saving a division survives a refresh.
 - Corrupt records cannot break the list.
 - Saved data has a schema version.
 - A division can be reopened and deleted.
 - Cookie/local-storage access failures degrade to in-memory operation with a warning.
+
+**Step 5.0 implementation notes**
+- `src/services/storage/` validates versioned records and stores a localStorage collection, with a bounded opaque-ID cookie index; an unreadable collection is quarantined when possible and unsupported versions are preserved rather than overwritten.
+- When localStorage fails, use same-tab sessionStorage when available, otherwise in-memory state, and explicitly warn that changes may be lost. In-memory state cannot survive navigation or refresh.
+- Preview autosaving keeps an ID in its existing same-tab handoff to avoid creating duplicates on refresh. The saved-divisions list opens saved records through the shared preview and supports confirmed deletion and duplication.
+- Both manual and EPUB records retain the parsed book data needed to recalculate the plan; neither uploaded EPUB bytes nor book metadata are placed in cookies.
 
 ---
 

@@ -35,6 +35,7 @@ test("all current view translation keys exist in both dictionaries", async () =>
     "../src/views/manual.ejs",
     "../src/views/preview.ejs",
     "../src/views/epub.ejs",
+    "../src/views/divisions.ejs",
   ];
   const sources = await Promise.all(views.map((path) =>
     readFile(new URL(path, import.meta.url), "utf8"),
@@ -44,7 +45,7 @@ test("all current view translation keys exist in both dictionaries", async () =>
       .map((match) => match[1])
       .filter((key) => !key.includes("<%")),
   );
-  keys.push("title.home", "title.manual", "title.preview", "title.epub");
+  keys.push("title.home", "title.manual", "title.preview", "title.epub", "title.divisions");
   for (const key of keys) {
     assert.ok(messages.fr[key], `Missing French translation: ${key}`);
     assert.ok(messages.en[key], `Missing English translation: ${key}`);

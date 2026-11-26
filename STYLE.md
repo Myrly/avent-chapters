@@ -23,6 +23,8 @@ Reuse classes as much as possible.
 
 Interactive controls should follow the same visual language: strong ink borders, squared corners, palette-based fills, visible focus rings, and offset shadows for prominent controls. Checkboxes use the shared `.brutal-checkbox` treatment rather than browser-default rendering.
 
+In the header, use the primary button style and `aria-current="page"` for the current navigation page; other navigation links use the secondary style.
+
 Ignored EPUB sections remain visible in a muted gray treatment with their title struck through and a clearly labeled Restore button. Keep the row readable and keyboard accessible.
 
 Reading-plan statistics use the existing pink palette, strong ink borders, and offset shadow. Day tooltips for median/extreme values must be available on hover and keyboard focus.

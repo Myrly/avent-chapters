@@ -1,0 +1,12 @@
+<%- include("layout", { title, titleKey, body: `
+<section class="brutal-card">
+  <h1 data-i18n="saved.title">Mes découpages</h1>
+  <p data-i18n="saved.description">Vos découpages restent dans ce navigateur et ne sont pas synchronisés.</p>
+  <p class="status-error" data-saved-warning role="alert" hidden></p>
+  <p class="status-message" data-saved-notice role="status" hidden></p>
+  <p data-saved-empty data-i18n="saved.empty" hidden>Aucun découpage enregistré pour le moment.</p>
+  <ul class="saved-list" data-saved-list></ul>
+  <a class="button button-secondary" href="/index.html" data-i18n="common.home">Retour à l'accueil</a>
+</section>
+<script type="module" src="/scripts/divisions.js"></script>
+` }) %>

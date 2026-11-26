@@ -151,3 +151,20 @@
 - Ambiguity: initially “last 3” and missing EPUB pagination were unclear; user selected median/max/min day tooltips and estimated ranges only when a print-page total exists. Rating: 6/6 after clarification.
 - Markdown context: `AGENTS.md`, `NEXT.md`, `PLAN.md`, `TECHNOLOGIES.md`, `ARCHITECTURE.md`, `PROJECT.md`, and `STYLE.md` provided sufficient UI, localization, and static-app constraints. Rating: 6/6.
 - Validation: 48 tests pass, the static build succeeds, and browser checks confirmed manual and estimated EPUB statistics, hidden/unavailable state without EPUB pagination, localized tooltips, and no mobile overflow. `NEXT.md` remains on step 5.0.
+
+## Step 5.0 browser-local saved divisions
+
+- Added automatic preview saving, versioned localStorage records with an opaque-ID cookie index, a bilingual saved-plans list, shared-preview details, duplication, and confirmed deletion. Browser storage failures warn and fall back to same-tab session storage or memory.
+- Invalid individual records are removed; malformed collections are quarantined if possible, while unsupported versions are preserved. No uploaded EPUB bytes or book details are put in cookies.
+- Problem description: the roadmap specified the main persistence and list requirements; automatic saving and deletion behavior needed clarification. Rating: 5.5/6.
+- Ambiguity: resolved by confirming automatic saving, deletion confirmation, and localStorage with a privacy-preserving cookie index. Rating: 6/6.
+- Markdown context: project and architecture documentation established the static, browser-local, bilingual constraints; the step's storage fallback needed careful interpretation. Rating: 5.5/6.
+- Validation: 53 tests pass and the static build succeeds. Browser checks cover automatic manual/EPUB saving, refresh, list/open/duplicate/delete, localized copy, and narrow-screen layout.
+
+## Unnumbered header navigation fix
+
+- The shared header now applies the existing primary button style and `aria-current="page"` only to the current navigation page; other navigation links use the secondary style. Pages without a matching navigation link highlight none.
+- Problem description: the screenshot and request clearly identified the incorrect active style. Rating: 6/6.
+- Ambiguity: none for the three navigation pages; pages without a corresponding tab have no active tab. Rating: 6/6.
+- Markdown context: the existing style and architecture guidance provided sufficient context. Rating: 6/6.
+- Validation: seven targeted navigation/localization tests pass, the static build succeeds, and a browser check confirms EPUB uses the primary colors and `aria-current` while the other tabs remain secondary.

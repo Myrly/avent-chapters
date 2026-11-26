@@ -2,15 +2,24 @@ import { calculateBookDivision } from "./domain/services/calculation/book-divisi
 import { messages } from "./i18n-messages.js";
 import { renderDayList } from "./preview-days.js";
 import { renderPlanStatistics } from "./preview-statistics.js";
+import { autosavePreview, readSavedPreview } from "./preview-saved.js";
 
 const summary = document.querySelector("[data-preview-summary]");
 if (summary) loadPreview();
 
 function loadPreview() {
+  const savedId = new URLSearchParams(window.location.search).get("id");
+  if (savedId !== null) {
+    const saved = readSavedPreview(savedId);
+    if (saved.error) return showError(saved.error);
+    return showPayload(saved.payload, saved.warning ? "saved.warning" : "", true);
+  }
   let serialized;
+  let key;
   try {
-    serialized = sessionStorage.getItem("livrent.epub-preview") ||
-      sessionStorage.getItem("livrent.manual-preview");
+    key = sessionStorage.getItem("livrent.epub-preview")
+      ? "livrent.epub-preview" : "livrent.manual-preview";
+    serialized = sessionStorage.getItem(key);
   } catch (error) {
     console.error("Unable to read the manual preview from session storage:", error);
     return showError("preview.storage_error");
@@ -28,7 +37,10 @@ function loadPreview() {
   if (!payload?.book || !Array.isArray(payload.book.sections)) {
     return showError("preview.invalid_data");
   }
+  showPayload(payload, "", false, key);
+}
 
+function showPayload(payload, status, savedDetail, key) {
   let days;
   try {
     days = calculateBookDivision(payload.book);
@@ -36,6 +48,15 @@ function loadPreview() {
     if (!(error instanceof RangeError)) throw error;
     console.error("The stored manual book cannot be divided:", error);
     return showError("preview.invalid_data");
+  }
+  if (!savedDetail) status = autosavePreview(payload, key);
+  const back = document.querySelector("[data-preview-back]");
+  back.hidden = savedDetail;
+  const statusNode = document.querySelector("[data-saved-status]");
+  statusNode.hidden = !status;
+  if (status) {
+    statusNode.dataset.i18n = status;
+    statusNode.textContent = currentMessages()[status];
   }
   renderPreview(payload, days);
   document.querySelector("[data-language-selector]")?.addEventListener("change", () =>

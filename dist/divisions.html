@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#602437">
+    <title data-i18n="title.divisions">Mes découpages | Livrent</title>
+    <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="/styles/forms.css">
+    <link rel="stylesheet" href="/styles/preview.css">
+    <link rel="stylesheet" href="/styles/divisions.css">
+    <script type="module" src="/scripts/i18n.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+  <a class="brand" href="/index.html">Chapitres de l'Avent</a>
+  <div class="header-actions">
+    <nav class="nav" aria-label="Navigation principale" data-i18n-aria-label="nav.label">
+      <a class="button button-small button-secondary" href="/manual.html" data-i18n="nav.manual">Saisie manuelle</a>
+      <a class="button button-small button-secondary" href="/epub.html" data-i18n="nav.epub">EPUB</a>
+      <a class="button button-small" href="/divisions.html" data-i18n="nav.divisions" aria-current="page">Mes découpages</a>
+    </nav>
+    <label class="locale-control">
+      <span data-i18n="language.label">Langue</span>
+      <select data-language-selector aria-label="Choisir la langue" data-i18n-aria-label="language.label">
+        <option value="fr">Français</option>
+        <option value="en">English</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+    <main class="site-main">
+<section class="brutal-card">
+  <h1 data-i18n="saved.title">Mes découpages</h1>
+  <p data-i18n="saved.description">Vos découpages restent dans ce navigateur et ne sont pas synchronisés.</p>
+  <p class="status-error" data-saved-warning role="alert" hidden></p>
+  <p class="status-message" data-saved-notice role="status" hidden></p>
+  <p data-saved-empty data-i18n="saved.empty" hidden>Aucun découpage enregistré pour le moment.</p>
+  <ul class="saved-list" data-saved-list></ul>
+  <a class="button button-secondary" href="/index.html" data-i18n="common.home">Retour à l'accueil</a>
+</section>
+<script type="module" src="/scripts/divisions.js"></script>
+</main>
+    <footer class="site-footer">
+  <p data-i18n="footer.tagline">Fait avec le ❤️ - par @Myrly</p>
+</footer>
+
+  </body>
+</html>
+

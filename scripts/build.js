@@ -7,6 +7,7 @@ const pages = [
   { name: "manual", title: "Saisie manuelle | Chapitres de l'Avent", titleKey: "title.manual" },
   { name: "preview", title: "Aperçu du découpage | Chapitres de l'Avent", titleKey: "title.preview" },
   { name: "epub", title: "Découpage EPUB | Chapitres de l'Avent", titleKey: "title.epub" },
+  { name: "divisions", title: "Mes découpages | Livrent", titleKey: "title.divisions" },
 ];
 
 await rm(dist, { recursive: true, force: true });
@@ -39,6 +40,9 @@ await cp(new URL("../src/data/models/", import.meta.url), new URL("scripts/domai
   recursive: true,
 });
 await cp(new URL("../src/services/calculation/", import.meta.url), new URL("scripts/domain/services/calculation/", dist), {
+  recursive: true,
+});
+await cp(new URL("../src/services/storage/", import.meta.url), new URL("scripts/domain/services/storage/", dist), {
   recursive: true,
 });
 await cp(new URL("../src/services/epub/", import.meta.url), new URL("scripts/domain/services/epub/", dist), {

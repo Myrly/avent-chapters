@@ -2,8 +2,9 @@
   <a class="brand" href="/index.html">Chapitres de l'Avent</a>
   <div class="header-actions">
     <nav class="nav" aria-label="Navigation principale" data-i18n-aria-label="nav.label">
-      <a class="button button-small" href="/manual.html" data-i18n="nav.manual">Saisie manuelle</a>
-      <a class="button button-small button-secondary" href="/epub.html" data-i18n="nav.epub">EPUB</a>
+      <a class="button button-small<%= titleKey === 'title.manual' ? '' : ' button-secondary' %>" href="/manual.html" data-i18n="nav.manual"<%- titleKey === 'title.manual' ? ' aria-current="page"' : '' %>>Saisie manuelle</a>
+      <a class="button button-small<%= titleKey === 'title.epub' ? '' : ' button-secondary' %>" href="/epub.html" data-i18n="nav.epub"<%- titleKey === 'title.epub' ? ' aria-current="page"' : '' %>>EPUB</a>
+      <a class="button button-small<%= titleKey === 'title.divisions' ? '' : ' button-secondary' %>" href="/divisions.html" data-i18n="nav.divisions"<%- titleKey === 'title.divisions' ? ' aria-current="page"' : '' %>>Mes découpages</a>
     </nav>
     <label class="locale-control">
       <span data-i18n="language.label">Langue</span>

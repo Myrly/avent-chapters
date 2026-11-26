@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/styles/base.css">
     <link rel="stylesheet" href="/styles/forms.css">
     <link rel="stylesheet" href="/styles/preview.css">
+    <link rel="stylesheet" href="/styles/divisions.css">
     <script type="module" src="/scripts/i18n.js"></script>
   </head>
   <body>
@@ -16,8 +17,9 @@
   <a class="brand" href="/index.html">Chapitres de l'Avent</a>
   <div class="header-actions">
     <nav class="nav" aria-label="Navigation principale" data-i18n-aria-label="nav.label">
-      <a class="button button-small" href="/manual.html" data-i18n="nav.manual">Saisie manuelle</a>
+      <a class="button button-small button-secondary" href="/manual.html" data-i18n="nav.manual">Saisie manuelle</a>
       <a class="button button-small button-secondary" href="/epub.html" data-i18n="nav.epub">EPUB</a>
+      <a class="button button-small button-secondary" href="/divisions.html" data-i18n="nav.divisions">Mes découpages</a>
     </nav>
     <label class="locale-control">
       <span data-i18n="language.label">Langue</span>
@@ -37,6 +39,7 @@
   <p class="status-error" data-preview-error role="alert" hidden></p>
   <div data-preview-results hidden>
     <p class="status-message" data-preview-summary></p>
+    <p class="status-message" data-saved-status role="status" hidden></p>
     <p class="status-message" data-preview-note hidden></p>
     <p class="status-message" data-preview-duplicates hidden></p>
     <section class="plan-statistics" data-preview-statistics hidden aria-labelledby="preview-statistics-title">
@@ -53,6 +56,7 @@
   </div>
   <div class="action-row">
     <a class="button" href="/manual.html" data-preview-back data-i18n="preview.back">Modifier les données</a>
+    <a class="button button-secondary" href="/divisions.html" data-i18n="saved.back">Retour aux découpages</a>
     <a class="button button-secondary" href="/index.html" data-i18n="common.home">Retour à l'accueil</a>
   </div>
 </section>
